@@ -4,12 +4,10 @@ namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class BlogController
@@ -85,8 +83,8 @@ class BlogController extends Controller
         $comment->setPost($post);
 
         $form = $this->createFormBuilder($comment)
-            ->add('message', TextType::class)
             ->add('pseudo', TextType::class)
+            ->add('message', TextType::class)
             ->add('submit', SubmitType::class, array('label' => 'Create Post'))
             ->getForm();
 
@@ -101,5 +99,37 @@ class BlogController extends Controller
         }
 
         return $this->render("BlogBundle:Blog:post.html.twig", ['post' => $post, 'comments' => $comments, 'form' => $form->createView()]);
+    }
+
+    public function adminAction(Request $request)
+    {
+        /**
+         * TODO: If user is not admin gtfo
+         */
+
+        $commentRepository = $this->getDoctrine()->getRepository("BlogBundle:Comment");
+
+        $comments = $commentRepository->findBy(['validated' => false]);
+
+        return $this->render("BlogBundle:Blog:admin.html.twig", ['comments' => $comments]);
+    }
+
+    public function validateAction(Request $request)
+    {
+        /**
+         * TODO: If user is not admin gtfo
+         */
+
+        $manager = $this->getDoctrine()->getManager();
+        $blog = $this->getDoctrine()->getRepository("BlogBundle:Comment")->findOneBy(['id' => $request->attributes->get("slug")]);
+
+        $blog->setValidated(true);
+
+        $manager->persist($blog);
+        $manager->flush();
+
+        $url = $this->generateUrl("blog_admin");
+
+        return $this->redirect($url);
     }
 }

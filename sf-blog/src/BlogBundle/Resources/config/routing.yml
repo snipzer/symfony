@@ -2,13 +2,24 @@ blog_index:
     path:     /
     defaults: { _controller: BlogBundle:Blog:index }
 
+blog_admin:
+    path: /admin
+    defaults:
+        _controller: BlogBundle:Blog:admin
+
+blog_validate:
+    path: /admin/{slug}
+    defaults:
+        _controller: BlogBundle:Blog:validate
+    requirements:
+        slug: \d+
+
 
 blog_category:
     path: /{categorySlug}
     defaults:
         _controller: BlogBundle:Blog:category
         categorySlug: 1
-
 
 blog_post:
     path: /{categorySlug}/{postSlug}
