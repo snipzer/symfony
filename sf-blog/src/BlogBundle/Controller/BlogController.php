@@ -2,8 +2,14 @@
 
 namespace BlogBundle\Controller;
 
+use BlogBundle\Entity\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Class BlogController
@@ -34,9 +40,22 @@ class BlogController extends Controller
      *
      * @return Response
      */
-    public function categoryAction($categorySlug)
+    public function categoryAction(Request $request)
     {
-        return new Response('Category action');
+        $categoryRepository = $this->getDoctrine()->getRepository("BlogBundle:Category");
+        $listCategory = $this->getDoctrine()->getRepository("BlogBundle:Post");
+
+        $category = $categoryRepository->findOneBy(['slug' => $request->attributes->get('categorySlug')]);
+
+        if ($category == null)
+        {
+            $this->createNotFoundException("Category not found");
+        }
+
+        $lists = $listCategory->findBy(["category" => $category->getId()]);
+
+
+        return $this->render("BlogBundle:Blog:category.html.twig", ["category" => $category, "lists" => $lists]);
     }
 
     /**
@@ -47,8 +66,40 @@ class BlogController extends Controller
      *
      * @return Response
      */
-    public function postAction($categorySlug, $postSlug)
+    public function postAction(Request $request)
     {
-        return new Response('Post action');
+        $manager = $this->getDoctrine()->getManager();
+        $postRepository = $this->getDoctrine()->getRepository("BlogBundle:Post");
+        $commentRepository = $this->getDoctrine()->getRepository("BlogBundle:Comment");
+
+        $post = $postRepository->findOneBy(['slug' => $request->attributes->get('postSlug')]);
+
+        if ($post == null)
+        {
+            $this->createNotFoundException("Post not found");
+        }
+        $comments = $commentRepository->findBy(['post' => $post->getId(), 'validated' => true]);
+
+
+        $comment = new Comment();
+        $comment->setPost($post);
+
+        $form = $this->createFormBuilder($comment)
+            ->add('message', TextType::class)
+            ->add('pseudo', TextType::class)
+            ->add('submit', SubmitType::class, array('label' => 'Create Post'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->render("BlogBundle:Blog:post.html.twig", ['post' => $post, 'comments' => $comments, 'form' => $form->createView()]);
+        }
+
+        return $this->render("BlogBundle:Blog:post.html.twig", ['post' => $post, 'comments' => $comments, 'form' => $form->createView()]);
     }
 }

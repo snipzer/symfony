@@ -30,12 +30,6 @@ BlogBundle\Entity\Post:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
-    manyToOne:
-        category:
-            targetEntity: BlogBundle:Category
-            joinColumn:
-                name: category_id
-                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [onPrePersist]
         preUpdate: [onPreUpdate]

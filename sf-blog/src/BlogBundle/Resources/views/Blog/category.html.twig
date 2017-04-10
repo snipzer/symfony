@@ -1,0 +1,17 @@
+{% extends "BlogBundle::base.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Symfony Blog</h1>
+        </div>
+        <h2>{{ category.title }}</h2>
+        <h3>{{ category.description }}</h3>
+        <h2>Liste des articles associer:</h2>
+        {% for list in lists %}
+            <a href="{{ path('blog_post', {'categorySlug': category.slug,'postSlug': list.slug}) }}"><p>{{ list.title }}</p></a>
+            <p>Written by {{ list.author }} on {{ list.publishedAt|date("d/m/Y") }}</p>
+            {% if not loop.last %}<hr>{% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}
