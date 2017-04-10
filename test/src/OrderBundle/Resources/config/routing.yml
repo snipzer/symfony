@@ -1,0 +1,15 @@
+order_customer:
+    resource: "@OrderBundle/Resources/config/routing/customer.yml"
+    prefix:   /customer
+
+#customer:
+#  resource: "routing/customer-old.yml"
+#  prefix: /customer
+
+order:
+  resource: "routing/order.yml"
+  prefix: /order
+
+home_homepage:
+    path:     /
+    defaults: { _controller: OrderBundle:Default:index }

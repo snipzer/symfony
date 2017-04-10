@@ -1,0 +1,14 @@
+{% extends 'OrderBundle::base.html.twig' %}
+
+{% block body %}
+    <div id="main">
+        {% block main %}
+            <h2>Block main</h2>
+        {% endblock main %}
+    </div>
+    <div id="list">
+        {% block list %}
+            {{ render(controller('OrderBundle:Order:sideBar', {'max': 1})) }}
+        {% endblock list %}
+    </div>
+{% endblock body %}

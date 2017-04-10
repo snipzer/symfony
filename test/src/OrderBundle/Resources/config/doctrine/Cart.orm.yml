@@ -1,0 +1,28 @@
+OrderBundle\Entity\Cart:
+    type: entity
+    table: null
+    repositoryClass: OrderBundle\Repository\CartRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        number:
+            type: string
+            length: '16'
+        date:
+            type: datetime
+        status:
+            type: string
+            length: '16'
+    oneToMany:
+        lines:
+            targetEntity: OrderBundle\Entity\Line
+            mappedBy: cart
+            cascade: ['persist', 'remove']
+    manyToOne:
+        customer:
+            targetEntity: OrderBundle\Entity\Customer
+    lifecycleCallbacks: {  }

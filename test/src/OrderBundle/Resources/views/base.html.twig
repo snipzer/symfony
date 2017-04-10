@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <title>OrderBundle</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/order/style.css') }}">
+</head>
+<body>
+
+    <div id="navBar">
+        {% include "OrderBundle:Fragment:navBar.html.twig" %}
+    </div>
+
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div class="flash_notice">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
+    {% block body %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'OrderBundle::layout.html.twig' %}
+{%  block main %}
+<section>
+    <article>
+        <h1>Commande N°{{ cart.number }}</h1>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Date</th>
+                <td>{{ cart.date|date }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ cart.status }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Désignation</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for line in lines %}
+                <tr>
+                    <td>
+                        {{ line.designation }}
+                    </td>
+                    <td>
+                        {{ line.price|number_format(2, ',', ' ') }}&nbsp;€
+                    </td>
+                    <td>
+                        {{ line.quantity }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <p>
+            <a href="{{ path('order_list') }}">Retour à la liste</a>
+        </p>
+        <p>
+            <a href="{{ path('order_add_line', { "id" : cart.id }) }}">Ajout d'une ligne</a>
+        </p>
+    </article>
+</section>
+{% endblock main %}
+{% block list %}
+    {{ parent() }}
+    <p>Super test</p>
+{% endblock list %}

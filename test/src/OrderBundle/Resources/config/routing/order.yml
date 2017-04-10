@@ -1,0 +1,39 @@
+order_list:
+    path: /
+    defaults:
+        _controller:  OrderBundle:Order:index
+
+order_create:
+    path: /create
+    defaults:
+        _controller:  OrderBundle:Order:create
+
+order_detail:
+    path:             /{id}
+    defaults:
+        _controller:  OrderBundle:Order:detail
+    requirements:
+        id:         \d+
+
+order_update:
+    path:             /{id}/update/{slug}
+    defaults:
+        _controller:  OrderBundle:Order:update
+    requirements:
+        id:         \d+
+        slug:       \d+
+
+
+order_delete:
+    path:             /{id}/delete
+    defaults:
+        _controller:  OrderBundle:Order:delete
+    requirements:
+        id:         \d+
+
+order_add_line:
+    path: /{id}/add-line
+    defaults:
+        _controller:  OrderBundle:Order:addLine
+    requirements:
+        id: \d+

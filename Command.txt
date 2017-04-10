@@ -1,0 +1,35 @@
+-Générer un projet
+symfony new [project-name] [version]
+
+-Lancer le server:
+php app/console server:run
+php app/console s:r
+
+-Créer un bundle:
+php app/console generate:bundle
+php app/console g:b
+
+-Créer la base de données avec doctrine
+php app/console doctrine:database:create
+
+-Générer les entitées doctrines
+php app/console generate:doctrine:entity
+
+-Valider les schema
+php app/console doctrine:schema:validate
+
+-Créer les tables quand le mapping est créer
+php app/console doctrine:schema:create
+
+-Lise à jour du schema
+php app/console doctrine:schema:update [‐‐force] [‐‐dump‐sql]
+
+-Genère un controleur qui a les méthodes de base pour manipuler des données
+php app/console generate:doctrine:crud
+
+-Installation des assets
+php app/console assets:install [--symlink [--relative]]
+
+-Pour choisir l'environnement lors d'un lancement d'une commande
+    *En production
+        [-e prod]

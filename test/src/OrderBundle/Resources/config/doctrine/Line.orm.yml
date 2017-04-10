@@ -1,0 +1,29 @@
+OrderBundle\Entity\Line:
+    type: entity
+    table: null
+    repositoryClass: OrderBundle\Repository\LineRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        designation:
+            type: string
+            length: 255
+        price:
+            type: decimal
+            precision: '7'
+            scale: '2'
+        quantity:
+            type: integer
+    manyToOne:
+        cart:
+            targetEntity: OrderBundle\Entity\Cart
+            inversedBy: lines
+            joinColumn:
+                name: cart_id
+                referencedColumnName: id
+                onDelete: 'cascade'
+    lifecycleCallbacks: {  }

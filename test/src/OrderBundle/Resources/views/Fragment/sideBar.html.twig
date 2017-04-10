@@ -1,0 +1,7 @@
+<ul>
+    {% for cart in carts %}
+        <li>
+            <a href="{{ path("order_detail", {'id': cart.id}) }}">{{ cart.number }}</a>
+        </li>
+    {% endfor %}
+</ul>

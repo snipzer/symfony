@@ -1,0 +1,35 @@
+{% extends 'OrderBundle::base.html.twig' %}
+{%  block body %}
+<section>
+    <article>
+        <h1>Liste des commandes :</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Date</th>
+                <th>Statut</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cart in cart_list %}
+                <tr>
+                    <td>
+                        <a href="{{ path('order_detail', {'id': cart.id}) }}">
+                            {{ cart.number }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ cart.date|date }}
+                    </td>
+                    <td>
+                        {{ cart.status }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </article>
+</section>
+{% endblock %}

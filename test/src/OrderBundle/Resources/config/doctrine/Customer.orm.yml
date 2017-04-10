@@ -1,0 +1,18 @@
+OrderBundle\Entity\Customer:
+    type: entity
+    table: null
+    repositoryClass: OrderBundle\Repository\CustomerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: '64'
+        lastName:
+            type: string
+            length: '64'
+    lifecycleCallbacks: {  }

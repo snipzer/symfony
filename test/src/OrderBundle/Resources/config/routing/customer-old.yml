@@ -1,0 +1,20 @@
+customer_list:
+    path: /
+    defaults:
+        _controller:  OrderBundle:Customer:index
+
+
+
+customer_redirect:
+    path:           /redirect
+    defaults:
+        _controller:  OrderBundle:Customer:redirect
+
+
+customer_detail:
+    path:             /{slug}
+    defaults:
+        _controller:  OrderBundle:Customer:detail
+    requirements:
+        slug:         "[a-zA-Z]+"
+
