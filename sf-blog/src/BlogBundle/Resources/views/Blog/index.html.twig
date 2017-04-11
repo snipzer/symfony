@@ -24,7 +24,7 @@
                     {{ post.content|summary }}
                 </p>
                 <p class="text-right">
-                    <a href="javascript: void(0)" class="btn btn-primary btn-sm">
+                    <a href="{{ path('blog_post', {'categorySlug': post.category.slug, 'postSlug': post.slug}) }}" class="btn btn-primary btn-sm">
                         Lire la suite
                     </a>
                 </p>

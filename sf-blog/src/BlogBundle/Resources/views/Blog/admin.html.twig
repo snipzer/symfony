@@ -2,13 +2,22 @@
 
 {% block content %}
     <hr>
-    <h2>Commentaire en attente de validation</h2>
-    {% for comment in comments %}
-        <p>Posted by <strong>{{ comment.pseudo }}</strong> on {{ comment.createdAt|date("d/m/Y") }}</p>
-        <p>{{ comment.message|raw }}</p>
-        <a href="{{ path('blog_validate', {'slug': comment.id}) }}">Valider</a>
-        {% if not loop.last %}
-            <hr>
-        {% endif %}
+    {% for flash_message in app.session.flashBag.get('validate') %}
+        <div class="flash_message">
+            {{ flash_message }}
+        </div>
     {% endfor %}
+    <h2>Commentaire en attente de validation</h2>
+    {% if not comments %}
+        <p>No comment in waiting for validation</p>
+    {% else %}
+        {% for comment in comments %}
+            <p>Posted by <strong>{{ comment.pseudo }}</strong> on {{ comment.createdAt|date("d/m/Y") }}</p>
+            <p>{{ comment.message|raw }}</p>
+            <a href="{{ path('blog_validate', {'slug': comment.id}) }}">Valider</a>
+            {% if not loop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock content %}

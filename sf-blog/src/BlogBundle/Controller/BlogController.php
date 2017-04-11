@@ -3,6 +3,7 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\Comment;
+use Doctrine\DBAL\Driver\PDOException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -92,8 +93,16 @@ class BlogController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $manager->persist($comment);
-            $manager->flush();
+            try
+            {
+                $manager->persist($comment);
+                $manager->flush();
+                $this->addFlash('notice', 'Commented posted and his in waiting for validation by an administrator');
+            }
+            catch(PDOException $e)
+            {
+                echo $e->getMessage();
+            }
 
             return $this->render("BlogBundle:Blog:post.html.twig", ['post' => $post, 'comments' => $comments, 'form' => $form->createView()]);
         }
@@ -124,9 +133,10 @@ class BlogController extends Controller
         $blog = $this->getDoctrine()->getRepository("BlogBundle:Comment")->findOneBy(['id' => $request->attributes->get("slug")]);
 
         $blog->setValidated(true);
-
         $manager->persist($blog);
         $manager->flush();
+
+        $this->addFlash('validate', 'Comment authorize');
 
         $url = $this->generateUrl("blog_admin");
 
