@@ -5,20 +5,36 @@ security:
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    arthegas:
+                        password: $2y$12$g2vK/04cDQfukYn8Xvbg9e5ndF/fcSRnXTcR3jTcIabPHrbw4WyN2
+                        roles: 'ROLE_USER'
+                    snipzer:
+                        password: $2y$12$g2vK/04cDQfukYn8Xvbg9e5ndF/fcSRnXTcR3jTcIabPHrbw4WyN2
+                        roles: 'ROLE_ADMIN'
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+        default:
+            pattern: ^/
+            security: true
             anonymous: ~
-            # activate different ways to authenticate
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: /logout
+                target: /
+            anonymous: ~
 
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }

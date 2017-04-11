@@ -3,11 +3,12 @@
 namespace BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -17,47 +18,33 @@ class User
     /**
      * @var string
      */
-    private $pseudo;
+    private $username;
 
     /**
-     * @var \DateTime
+     * @var string
      */
-    private $inscriptionDate;
+    private $password;
 
     /**
-     * @var int
+     * @var string
      */
-    private $numberOfComment;
+    private $email;
 
     /**
      * @var bool
      */
-    private $isAdmin;
+    private $isActive;
 
-    private $password;
 
     public function __construct()
     {
-        $this->inscriptionDate = new \DateTime();
-        $this->numberOfComment = 0;
-        $this->isAdmin = false;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
+        $this->isActive = true;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,94 +52,127 @@ class User
     }
 
     /**
-     * Set pseudo
+     * Set username
      *
-     * @param string $pseudo
+     * @param string $username
      * @return User
      */
-    public function setPseudo($pseudo)
+    public function setUsername($username)
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get pseudo
+     * Get username
      *
-     * @return string 
+     * @return string
      */
-    public function getPseudo()
+    public function getUsername()
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
     /**
-     * Set inscriptionDate
+     * Set password
      *
-     * @param \DateTime $inscriptionDate
+     * @param string $password
      * @return User
      */
-    public function setInscriptionDate($inscriptionDate)
+    public function setPassword($password)
     {
-        $this->inscriptionDate = $inscriptionDate;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get inscriptionDate
+     * Get password
      *
-     * @return \DateTime 
+     * @return string
      */
-    public function getInscriptionDate()
+    public function getPassword()
     {
-        return $this->inscriptionDate;
+        return $this->password;
     }
 
     /**
-     * Set numberOfComment
+     * Set email
      *
-     * @param integer $numberOfComment
+     * @param string $email
      * @return User
      */
-    public function setNumberOfComment($numberOfComment)
+    public function setEmail($email)
     {
-        $this->numberOfComment = $numberOfComment;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get numberOfComment
+     * Get email
      *
-     * @return integer 
+     * @return string
      */
-    public function getNumberOfComment()
+    public function getEmail()
     {
-        return $this->numberOfComment;
+        return $this->email;
     }
 
     /**
-     * Set isAdmin
+     * Set isActive
      *
-     * @param boolean $isAdmin
+     * @param boolean $isActive
      * @return User
      */
-    public function setIsAdmin($isAdmin)
+    public function setIsActive($isActive)
     {
-        $this->isAdmin = $isAdmin;
+        $this->isActive = $isActive;
 
         return $this;
     }
 
     /**
-     * Get isAdmin
+     * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getIsAdmin()
+    public function getIsActive()
     {
-        return $this->isAdmin;
+        return $this->isActive;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+        ]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
     }
 }

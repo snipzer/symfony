@@ -30,6 +30,9 @@ php app/console generate:doctrine:crud
 -Installation des assets
 php app/console assets:install [--symlink [--relative]]
 
+-Encoder des mot de passe:
+php bin/console security:encode-password
+
 -Pour choisir l'environnement lors d'un lancement d'une commande
     *En production
         [-e prod]

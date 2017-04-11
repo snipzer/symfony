@@ -9,17 +9,17 @@ BlogBundle\Entity\User:
             generator:
                 strategy: AUTO
     fields:
-        pseudo:
+        username:
             type: string
             length: '25'
             unique: true
-        inscriptionDate:
-            type: datetime
-        numberOfComment:
-            type: integer
-        isAdmin:
-            type: boolean
         password:
             type: string
-            length: '25'
+            length: '64'
+        email:
+            type: string
+            length: '60'
+            unique: true
+        isActive:
+            type: boolean
     lifecycleCallbacks: {  }

@@ -46,9 +46,10 @@ class BlogController extends Controller
 
         $category = $categoryRepository->findOneBy(['slug' => $request->attributes->get('categorySlug')]);
 
+        var_dump($category);
         if ($category == null)
         {
-            $this->createNotFoundException("Category not found");
+            throw $this->createNotFoundException("Category not found");
         }
 
         $lists = $listCategory->findBy(["category" => $category->getId()]);
@@ -75,7 +76,7 @@ class BlogController extends Controller
 
         if ($post == null)
         {
-            $this->createNotFoundException("Post not found");
+            throw $this->createNotFoundException("Post not found");
         }
         $comments = $commentRepository->findBy(['post' => $post->getId(), 'validated' => true]);
 

@@ -1,3 +1,11 @@
+logout:
+    path: /logout
+
+login:
+    path: /login
+    defaults:
+        _controller: BlogBundle:Security:login
+
 blog:
     resource: "@BlogBundle/Resources/config/routing.yml"
     prefix:   /
