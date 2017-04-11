@@ -1,0 +1,22 @@
+BlogBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: BlogBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        pseudo:
+            type: string
+            length: '25'
+            unique: true
+        inscriptionDate:
+            type: datetime
+        numberOfComment:
+            type: integer
+        isAdmin:
+            type: boolean
+    lifecycleCallbacks: {  }

@@ -14,6 +14,10 @@ blog_validate:
     requirements:
         slug: \d+
 
+blog_userCreation:
+    path: /user
+    defaults:
+        _controller: BlogBundle:User:createUser
 
 blog_category:
     path: /{categorySlug}
@@ -27,3 +31,4 @@ blog_post:
         _controller: BlogBundle:Blog:post
         categorySlug: 1
         postSlug: 1
+

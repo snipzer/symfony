@@ -46,6 +46,8 @@ class Post
      */
     private $publishedAt;
 
+    private $user;
+
 
     /**
      * Constructor.
@@ -53,6 +55,17 @@ class Post
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+        return $this;
     }
 
     /**
