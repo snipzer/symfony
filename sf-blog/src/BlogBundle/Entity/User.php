@@ -2,6 +2,8 @@
 
 namespace BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -35,9 +37,12 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    private $roles;
+
 
     public function __construct()
     {
+        $this->roles = new ArrayCollection();
         $this->isActive = true;
     }
 
@@ -150,7 +155,27 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        var_dump($this->roles);
+        return $this->roles;
+    }
+
+    public function setRoles(ArrayCollection $roles)
+    {
+        $this->roles = $roles;
+    }
+
+    public function addRoles($role)
+    {
+        $tabRoles = $this->getRoles();
+        if($role === "ROLE_ADMIN" || $role === "ROLE_USER")
+        {
+            $tabRoles->add($role);
+            $this->setRoles($tabRoles);
+        }
+        else
+        {
+            throw new InvalidArgumentException("Error, valid argument are: ROLE_ADMIN, ROLE_USER");
+        }
     }
 
     public function eraseCredentials()

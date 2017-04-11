@@ -22,4 +22,7 @@ BlogBundle\Entity\User:
             unique: true
         isActive:
             type: boolean
+        roles:
+            type: array
+            length: 255
     lifecycleCallbacks: {  }

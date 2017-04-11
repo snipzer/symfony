@@ -4,26 +4,18 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory:
-                users:
-                    arthegas:
-                        password: $2y$12$g2vK/04cDQfukYn8Xvbg9e5ndF/fcSRnXTcR3jTcIabPHrbw4WyN2
-                        roles: 'ROLE_USER'
-                    snipzer:
-                        password: $2y$12$g2vK/04cDQfukYn8Xvbg9e5ndF/fcSRnXTcR3jTcIabPHrbw4WyN2
-                        roles: 'ROLE_ADMIN'
-
+        our_db_provider:
+            entity:
+                class: BlogBundle:User
+                property: username
     encoders:
-        Symfony\Component\Security\Core\User\User:
+        BlogBundle\Entity\User:
             algorithm: bcrypt
             cost: 12
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
         default:
             pattern: ^/
             security: true
@@ -35,6 +27,6 @@ security:
                 path: /logout
                 target: /
             anonymous: ~
-
+            provider: our_db_provider
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
