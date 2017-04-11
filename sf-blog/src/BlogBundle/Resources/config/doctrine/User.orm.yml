@@ -19,4 +19,7 @@ BlogBundle\Entity\User:
             type: integer
         isAdmin:
             type: boolean
+        password:
+            type: string
+            length: '25'
     lifecycleCallbacks: {  }

@@ -24,4 +24,9 @@ BlogBundle\Entity\Comment:
             joinColumn:
                 name: post_id
                 referencedColumnName: id
+        user:
+            targetEntity: BlogBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
     lifecycleCallbacks: {  }

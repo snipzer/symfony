@@ -39,6 +39,7 @@ class Comment
      */
     private $validated;
 
+    private $user;
 
     /**
      * Constructor.
@@ -47,6 +48,18 @@ class Comment
     {
         $this->validated = false;
         $this->createdAt = new \DateTime();
+    }
+
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+        return $this;
     }
 
     /**

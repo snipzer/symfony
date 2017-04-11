@@ -34,12 +34,24 @@ class User
      */
     private $isAdmin;
 
+    private $password;
 
     public function __construct()
     {
         $this->inscriptionDate = new \DateTime();
         $this->numberOfComment = 0;
         $this->isAdmin = false;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
     }
 
     /**
