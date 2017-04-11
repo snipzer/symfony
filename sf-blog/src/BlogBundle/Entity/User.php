@@ -42,7 +42,6 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->roles = new ArrayCollection();
         $this->isActive = true;
     }
 
@@ -159,7 +158,7 @@ class User implements UserInterface, \Serializable
         return $this->roles;
     }
 
-    public function setRoles(ArrayCollection $roles)
+    public function setRoles($roles)
     {
         $this->roles = $roles;
     }

@@ -3,11 +3,9 @@
 namespace BlogBundle\Controller;
 
 use BlogBundle\Entity\User;
+use BlogBundle\Form\UserType;
 use Doctrine\DBAL\Driver\PDOException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,17 +27,9 @@ class UserController extends Controller
 
         $user = new User();
 
-        $form = $this->createFormBuilder($user)
-            ->add('pseudo', TextType::class)
-            ->add('isAdmin', ChoiceType::class, array(
-                'choices' => array(
-                    true => 'True',
-                    false => 'False'
-                ),
-                'expanded' => true,
-            ))
-            ->add('submit', SubmitType::class, array('label' => 'Create User'))
-            ->getForm();
+        $form = $this->createForm(new UserType(), $user);
+
+
 
         $form->handleRequest($request);
 
