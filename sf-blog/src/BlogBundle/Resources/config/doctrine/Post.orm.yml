@@ -30,11 +30,11 @@ BlogBundle\Entity\Post:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
-#        user:
-#            targetEntity: BlogBundle\Entity\User
-#            joinColumn:
-#                name: user_id
-#                referencedColumnName: id
+        user:
+            targetEntity: BlogBundle\Entity\User
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [onPrePersist]
         preUpdate: [onPreUpdate]
