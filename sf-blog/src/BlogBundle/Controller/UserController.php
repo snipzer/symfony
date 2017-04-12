@@ -23,22 +23,29 @@ class UserController extends Controller
 
     public function createUserAction(Request $request)
     {
+        // Récupère le manager
         $manager = $this->getDoctrine()->getManager();
 
+        // Créer un nouvel user
         $user = new User();
 
+        // Récupère le formulaire
         $form = $this->createForm(new UserType(), $user);
 
 
 
+        // Remplis le formulaire via la request
         $form->handleRequest($request);
 
+        // Une fois que le formulaire est envoyer
         if($form->isSubmitted() && $form->isValid())
         {
             try
             {
+                // Sauvegarde l'user
                 $manager->persist($user);
                 $manager->flush();
+                // Envois un message à l'utilisateur
                 $this->addFlash('notice', 'User created');
             }
             catch(PDOException $e)
