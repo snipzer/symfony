@@ -40,6 +40,11 @@ class UserController extends Controller
         // Une fois que le formulaire est envoyer
         if($form->isSubmitted() && $form->isValid())
         {
+            $encoder = $this->container->get("security.password_encoder");
+
+            $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
+
+            $user->setPassword($encoded);
             try
             {
                 // Sauvegarde l'user
@@ -52,8 +57,6 @@ class UserController extends Controller
             {
                 echo $e->getMessage();
             }
-
-            return $this->render("BlogBundle:Blog:inscription.html.twig", ['form' => $form->createView()]);
         }
 
         return $this->render("BlogBundle:Blog:inscription.html.twig", ['form' => $form->createView()]);

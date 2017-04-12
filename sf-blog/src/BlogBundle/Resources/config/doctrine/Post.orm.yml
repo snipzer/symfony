@@ -30,11 +30,13 @@ BlogBundle\Entity\Post:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
+                onDelete: SET NULL
         user:
             targetEntity: BlogBundle\Entity\User
             joinColumn:
                 name: user_id
                 referencedColumnName: id
+                onDelete: SET NULL
     lifecycleCallbacks:
         prePersist: [onPrePersist]
         preUpdate: [onPreUpdate]

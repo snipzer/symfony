@@ -7,12 +7,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
 use Nelmio\Alice\Fixtures;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class LoadData
  * @package BlogBundle\DataFixtures\ORM
  */
-class LoadData implements FixtureInterface
+class LoadData extends Controller implements FixtureInterface
 {
     /**
      * @var string
@@ -45,6 +46,13 @@ class LoadData implements FixtureInterface
         return rtrim($this->faker->sentence($words), '.');
     }
 
+    public function customPassword($words = 6)
+    {
+        $hash = password_hash("12345", PASSWORD_BCRYPT, ['cost' => 12]);
+
+        return $hash;
+    }
+
     public function customContent()
     {
         $paragraphs = [];
@@ -65,5 +73,19 @@ class LoadData implements FixtureInterface
         }
 
         return implode("\n\n", $sentences);
+    }
+
+    public function setRoles()
+    {
+        $roles = ["ROLE_USER"];
+
+        $bool = rand(0, 100);
+
+        if($bool <= 10)
+        {
+            $roles = ["ROLE_ADMIN", "ROLE_USER"];
+        }
+
+        return $roles;
     }
 }

@@ -10,6 +10,7 @@ BlogBundle\Entity\Post:
         author: <name()>
         content: <customContent()>
         publishedAt: <dateTimeBetween('-200 days', 'now')>
+        user: @user*
 
 BlogBundle\Entity\Comment:
     comment{1..80}:
@@ -18,3 +19,12 @@ BlogBundle\Entity\Comment:
         message: <customMessage()>
         createdAt: <dateTimeBetween('-200 days', 'now')>
         validated: <boolean(90)>
+        user: @user*
+
+BlogBundle\Entity\User:
+    user{1..20}:
+        username: <name()>
+        password: <customPassword()>
+        email: <firstName()>.<lastName()>@gmail.com
+        isActive: <boolean(90)>
+        roles: <setRoles()>

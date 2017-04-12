@@ -39,11 +39,31 @@ class User implements UserInterface, \Serializable
 
     private $roles;
 
+    private $plainPassword;
+
+
 
     public function __construct()
     {
         $this->isActive = true;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     **/
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
 
     /**
      * Get id
@@ -154,27 +174,12 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        var_dump($this->roles);
         return $this->roles;
     }
 
     public function setRoles($roles)
     {
         $this->roles = $roles;
-    }
-
-    public function addRoles($role)
-    {
-        $tabRoles = $this->getRoles();
-        if($role === "ROLE_ADMIN" || $role === "ROLE_USER")
-        {
-            $tabRoles->add($role);
-            $this->setRoles($tabRoles);
-        }
-        else
-        {
-            throw new InvalidArgumentException("Error, valid argument are: ROLE_ADMIN, ROLE_USER");
-        }
     }
 
     public function eraseCredentials()
