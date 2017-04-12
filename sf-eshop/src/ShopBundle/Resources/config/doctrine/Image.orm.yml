@@ -1,0 +1,24 @@
+ShopBundle\Entity\Image:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\ImageRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        file:
+            type: string
+            length: 255
+        alt:
+            type: string
+            length: 255
+        updatedAt:
+            type: datetime
+    manyToOne:
+        product:
+            targetEntity: ShopBundle\Entity\Product
+            inversedBy: images
+    lifecycleCallbacks: {  }

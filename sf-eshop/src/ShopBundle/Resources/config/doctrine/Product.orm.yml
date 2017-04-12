@@ -1,0 +1,44 @@
+ShopBundle\Entity\Product:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\ProductRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        price:
+            type: decimal
+            precision: '7'
+            scale: '2'
+        stock:
+            type: integer
+        releasedAt:
+            type: datetime
+        slug:
+            type: string
+            length: 255
+    manyToOne:
+        category:
+            targetEntity: ShopBundle\Entity\Category
+    oneToOne:
+        seo:
+            targetEntity: ShopBundle\Entity\Seo
+    manyToMany:
+        features:
+            targetEntity: ShopBundle\Entity\Feature
+            mappedBy: products
+    oneToMany:
+        images:
+            targetEntity: ShopBundle\Entity\Image
+            mappedBy: product
+    lifecycleCallbacks:
+            prePersist: [onPrePersist] # See src/ShopBundle/Entity/Product::onPrePersist
+            preUpdate: [onPreUpdate] # See src/ShopBundle/Entity/Product::onPreUpdate

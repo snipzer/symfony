@@ -1,0 +1,27 @@
+ShopBundle\Entity\Category:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\CategoryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        enabled:
+            type: boolean
+        slug:
+            type: string
+            length: 255
+    oneToOne:
+        seo:
+            targetEntity: ShopBundle\Entity\Seo
+    lifecycleCallbacks:
+            prePersist: [onPrePersist] # See src/ShopBundle/Entity/Category::onPrePersist
+            preUpdate: [onPreUpdate] # See src/ShopBundle/Entity/Category::onPreUpdate

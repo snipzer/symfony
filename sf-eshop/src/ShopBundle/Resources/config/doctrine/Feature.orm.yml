@@ -1,0 +1,19 @@
+ShopBundle\Entity\Feature:
+    type: entity
+    table: null
+    repositoryClass: ShopBundle\Repository\FeatureRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+    manyToMany:
+        products:
+            targetEntity: ShopBundle\Entity\Product
+            inversedBy: features
+    lifecycleCallbacks: {  }
