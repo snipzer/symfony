@@ -23,6 +23,17 @@ class CatalogController extends Controller
         return $this->render('ShopBundle:Catalog:index.html.twig');
     }
 
+    public function categoryAction()
+    {
+        return new Response("CategoryAction");
+    }
+
+    public function productAction()
+    {
+        return new Response("ProductAction");
+    }
+
+
     /**
      * Catalog image action.
      *
