@@ -28,6 +28,14 @@ class BlogController extends Controller
 
         $name = $speaker->sayMyName();
 
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Hello Email')
+            ->setFrom('loic.arif@gmail.com')
+            ->setTo('loic.arif@gmail.com')
+            ->setBody('Test');
+
+        $sent = $this->get('mailer')->send($message);
+
         $latestPosts = $this->getDoctrine()
             ->getRepository('BlogBundle:Post')
             ->findBy([], ['publishedAt' => 'DESC'], 3);
