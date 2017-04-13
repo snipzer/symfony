@@ -23,12 +23,18 @@ class BlogController extends Controller
      */
     public function indexAction()
     {
+
+        $speaker = $this->get('Blog.Speaker');
+
+        $name = $speaker->sayMyName();
+
         $latestPosts = $this->getDoctrine()
             ->getRepository('BlogBundle:Post')
             ->findBy([], ['publishedAt' => 'DESC'], 3);
 
         return $this->render('BlogBundle:Blog:index.html.twig', [
             'posts' => $latestPosts,
+            'name' => $name,
         ]);
     }
 

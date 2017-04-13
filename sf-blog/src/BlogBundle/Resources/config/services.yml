@@ -1,5 +1,11 @@
+parameters:
+    blog.speaker.name: 'Heisenberg'
+
 services:
     blog.twig.blog_extension:
         class: BlogBundle\Twig\BlogExtension
         tags:
             - { name: twig.extension }
+    blog.speaker:
+        class: BlogBundle\Service\Speaker
+        arguments: ['%blog.speaker.name%']
