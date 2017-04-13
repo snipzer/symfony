@@ -36,3 +36,6 @@ php bin/console security:encode-password
 -Pour choisir l'environnement lors d'un lancement d'une commande
     *En production
         [-e prod]
+
+-Chargement des fixtures
+php app/console doctrine:fixtures:load

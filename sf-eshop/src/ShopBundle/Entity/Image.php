@@ -29,6 +29,27 @@ class Image
 
     private $product;
 
+    private $upload;
+
+    /**
+     * @return mixed
+     */
+    public function getUpload()
+    {
+        return $this->upload;
+    }
+
+    /**
+     * @param mixed $upload
+     **/
+    public function setUpload($upload)
+    {
+        $this->upload = $upload;
+        return $this;
+    }
+
+
+
     /**
      * @return mixed
      */

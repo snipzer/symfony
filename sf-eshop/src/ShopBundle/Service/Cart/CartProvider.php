@@ -40,7 +40,8 @@ class CartProvider
     public function __construct(
         SessionInterface $session,
         ProductRepository $productRepository
-    ) {
+    )
+    {
         $this->session = $session;
         $this->productRepository = $productRepository;
     }
@@ -69,7 +70,8 @@ class CartProvider
     {
         $this->loadCart();
 
-        if (null !== $product = $this->findProductById($productId)) {
+        if (null !== $product = $this->findProductById($productId))
+        {
             $item = new CartItem();
             $item
                 ->setProduct($product)
@@ -148,7 +150,8 @@ class CartProvider
 
         $data = [];
 
-        foreach ($this->cart->getItems() as $item) {
+        foreach ($this->cart->getItems() as $item)
+        {
             $data[$item->getProduct()->getId()] = $item->getQuantity();
         }
 
@@ -161,7 +164,8 @@ class CartProvider
     private function loadCart()
     {
         // Abort if already loaded
-        if (null !== $this->cart) {
+        if (null !== $this->cart)
+        {
             return;
         }
 
@@ -171,10 +175,13 @@ class CartProvider
         $data = $this->session->get(static::SESSION_CART_KEY, []);
 
         // If data is not empty, a cart has been previously saved
-        if (!empty($data)) {
-            foreach ($data as $productId => $quantity) {
+        if (!empty($data))
+        {
+            foreach ($data as $productId => $quantity)
+            {
                 /** @var \ShopBundle\Entity\Product $product */
-                if (null !== $product = $this->productRepository->find($productId)) {
+                if (null !== $product = $this->productRepository->find($productId))
+                {
                     // Product has been found, create the cart item
                     $item = new CartItem();
                     $item

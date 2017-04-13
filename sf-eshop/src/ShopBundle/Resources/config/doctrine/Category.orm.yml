@@ -22,6 +22,7 @@ ShopBundle\Entity\Category:
     oneToOne:
         seo:
             targetEntity: ShopBundle\Entity\Seo
+            cascade: [persist, remove]
     lifecycleCallbacks:
             prePersist: [onPrePersist] # See src/ShopBundle/Entity/Category::onPrePersist
             preUpdate: [onPreUpdate] # See src/ShopBundle/Entity/Category::onPreUpdate

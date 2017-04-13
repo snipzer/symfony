@@ -16,4 +16,5 @@ ShopBundle\Entity\Feature:
         products:
             targetEntity: ShopBundle\Entity\Product
             inversedBy: features
+            cascade: [persist, remove]
     lifecycleCallbacks: {  }

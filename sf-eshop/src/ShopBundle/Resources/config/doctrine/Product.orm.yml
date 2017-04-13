@@ -28,17 +28,21 @@ ShopBundle\Entity\Product:
     manyToOne:
         category:
             targetEntity: ShopBundle\Entity\Category
+            cascade: [persist, remove]
     oneToOne:
         seo:
             targetEntity: ShopBundle\Entity\Seo
+            cascade: [persist, remove]
     manyToMany:
         features:
             targetEntity: ShopBundle\Entity\Feature
             mappedBy: products
+            cascade: [persist, remove]
     oneToMany:
         images:
             targetEntity: ShopBundle\Entity\Image
             mappedBy: product
+            cascade: [persist, remove]
     lifecycleCallbacks:
             prePersist: [onPrePersist] # See src/ShopBundle/Entity/Product::onPrePersist
             preUpdate: [onPreUpdate] # See src/ShopBundle/Entity/Product::onPreUpdate

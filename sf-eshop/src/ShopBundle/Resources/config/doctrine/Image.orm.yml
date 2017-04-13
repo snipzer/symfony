@@ -21,4 +21,5 @@ ShopBundle\Entity\Image:
         product:
             targetEntity: ShopBundle\Entity\Product
             inversedBy: images
+            cascade: [persist, remove]
     lifecycleCallbacks: {  }

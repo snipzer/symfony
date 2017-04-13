@@ -72,7 +72,7 @@ class Product
     /**
      * @param mixed $features
      **/
-    public function setFeatures(Feature $features)
+    public function setFeatures($features)
     {
         $this->features = $features;
     }
