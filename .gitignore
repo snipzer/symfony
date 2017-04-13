@@ -55,3 +55,16 @@
 /sf-test/bin/
 /sf-test/composer.phar
 
+/sf-comparator/web/bundles/
+/sf-comparator/app/bootstrap.php.cache
+/sf-comparator/app/cache/*
+/sf-comparator/app/config/parameters.yml
+/sf-comparator/app/logs/*
+!sf-comparator/app/cache/.gitkeep
+!sf-comparator/app/logs/.gitkeep
+/sf-comparator/app/phpunit.xml
+/sf-comparator/build/
+/sf-comparator/vendor/
+/sf-comparator/bin/
+/sf-comparator/composer.phar
+*sf-comparator/.ai
