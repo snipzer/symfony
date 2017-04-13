@@ -3,7 +3,9 @@
 namespace AppBundle\Feed;
 
 use AppBundle\Entity\Merchant;
+use AppBundle\Entity\Offer;
 use Doctrine\ORM\EntityManagerInterface;
+
 
 /**
  * Class Reader
@@ -15,7 +17,7 @@ class Reader
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $manager;
 
 
     /**
@@ -25,7 +27,7 @@ class Reader
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->em = $entityManager;
+        $this->manager = $entityManager;
     }
 
     /**
@@ -33,30 +35,50 @@ class Reader
      *
      * @param Merchant $merchant
      *
-     * @return int The number of created or updated offers.
+     * @return array The number of created or updated offers in associative array.
      */
     public function read(Merchant $merchant)
     {
-        // $count = 0;
+        $countNew = 0;
+        $countUpdated = 0;
 
-        // Lire le flux de données du marchand
+        $productRepository = $this->manager->getRepository("AppBundle:Product");
+        $offerRepository = $this->manager->getRepository("AppBundle:Offer");
 
-        // Convertir les données JSON en tableau
+        $url = $merchant->getFeedUrl();
 
-        // Pour chaque couple de données "code ean / prix"
+        $array = json_decode(file_get_contents($url), true);
 
-            // Trouver le produit correspondant
+        foreach($array as $key => $value)
+        {
+            $product = $productRepository->findOneBy(["eanCode" => $value["ean_code"]]);
+            if($product)
+            {
+                $offer = $offerRepository->findOneBy(["product" => $product]);
+                if($offer)
+                {
+                    $offer->setPrice($value["price"]);
+                    $offer->setUpdatedAt(new \DateTime());
+                    $countUpdated++;
+                }
+                else
+                {
+                    $offer = new Offer();
+                    $offer->setProduct($product)
+                          ->setMerchant($merchant)
+                          ->setPrice($value["price"])
+                          ->setUpdatedAt(new \DateTime());
+                    $countNew++;
+                }
+                $this->manager->persist($offer);
+                $this->manager->flush();
+            }
+        }
+        $tabCount = [
+            "new" => $countNew,
+            "updated" => $countUpdated
+        ];
 
-                // Sinon passer à l'itération suivante
-
-            // Trouver l'offre correspondant à ce produit et ce marchand
-
-                // Sinon créer l'offre
-
-            // Mettre à jour le prix et la date de mise à jour de l'offre
-
-            // Enregistrer l'offre et incrémenter le compteur d'offres
-
-        // Renvoyer le nombre d'offres
+        return $tabCount;
     }
 }

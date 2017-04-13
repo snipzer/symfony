@@ -15,7 +15,7 @@ AppBundle\Entity\Offer:
             scale: '2'
         updatedAt:
             type: datetime
-    oneToOne:
+    manyToOne:
         merchant:
             targetEntity: AppBundle\Entity\Merchant
         product:
