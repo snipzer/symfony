@@ -30,8 +30,8 @@ monolog:
         #    type: chromephp
         #    level: info
 
-swiftmailer:
-    delivery_addresses: ['destinataire@example.org']
+#swiftmailer:
+#    delivery_addresses: ['destinataire@example.org']
 
 
 
