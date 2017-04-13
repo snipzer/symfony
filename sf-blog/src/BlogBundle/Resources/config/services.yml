@@ -11,3 +11,9 @@ services:
         arguments: ['@blog.name_registry']
     blog.name_registry:
         class: BlogBundle\Service\NameRegistry
+    blog.notifier:
+        class: BlogBundle\Service\Notifier
+        arguments:
+            - '@twig'
+            - '@mailer'
+            - '%recipient%'
