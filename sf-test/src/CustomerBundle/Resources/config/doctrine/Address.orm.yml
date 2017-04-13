@@ -1,0 +1,25 @@
+CustomerBundle\Entity\Address:
+    type: entity
+    table: null
+    repositoryClass: CustomerBundle\Repository\AddressRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        street:
+            type: string
+            length: 255
+        postalCode:
+            type: string
+            length: '8'
+        city:
+            type: string
+            length: '64'
+    oneToOne:
+        customer:
+            targetEntity: CustomerBundle\Entity\Customer
+            inversedBy: address
+    lifecycleCallbacks: {  }

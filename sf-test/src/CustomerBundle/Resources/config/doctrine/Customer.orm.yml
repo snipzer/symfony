@@ -1,0 +1,29 @@
+CustomerBundle\Entity\Customer:
+    type: entity
+    table: null
+    repositoryClass: CustomerBundle\Repository\CustomerRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: '64'
+        lastName:
+            type: string
+            length: '64'
+        birthday:
+            type: datetime
+        balance:
+            type: decimal
+            precision: '7'
+            scale: '2'
+    oneToOne:
+        address:
+            targetEntity: CustomerBundle\Entity\Address
+            mappedBy: customer
+            cascade: [persist, remove]
+    lifecycleCallbacks: {  }

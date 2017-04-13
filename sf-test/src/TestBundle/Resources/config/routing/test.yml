@@ -1,0 +1,9 @@
+test_foo2:
+    path: /foo
+    defaults:
+        _controller: TestBundle:Default:testFoo
+
+test_number:
+    path: /{number}
+    defaults:
+        _controller: TestBundle:Default:number

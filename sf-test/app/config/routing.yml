@@ -1,0 +1,11 @@
+customer:
+    resource: "@CustomerBundle/Resources/config/routing.yml"
+
+
+test:
+    resource: "@TestBundle/Resources/config/routing.yml"
+    prefix:   /foobar
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

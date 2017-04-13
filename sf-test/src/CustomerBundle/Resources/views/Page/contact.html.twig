@@ -1,0 +1,22 @@
+{% extends "CustomerBundle::base.html.twig" %}
+
+{% block body %}
+<h1>Contact</h1>
+
+{{ form(form) }}
+
+<hr>
+
+<h2>Résultat</h2>
+<table class="table">
+    <tr>
+        <th>Email</th><td>{{ data.email }}</td>
+    </tr>
+    <tr>
+        <th>Sujet</th><td>{{ data.subject }}</td>
+    </tr>
+    <tr>
+        <th>Message</th><td>{{ data.message }}</td>
+    </tr>
+</table>
+{% endblock %}

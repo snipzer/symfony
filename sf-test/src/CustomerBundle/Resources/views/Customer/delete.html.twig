@@ -1,0 +1,12 @@
+{% extends "CustomerBundle::base.html.twig" %}
+
+{% block body %}
+    <h2>Suppression du client #{{ customer.id }}</h2>
+    {{ form(form) }}
+    <p>
+        <a href="{{ path('customer_detail', {'id': customer.id}) }}"
+           class="btn btn-sm btn-default">
+            Retour
+        </a>
+    </p>
+{% endblock %}

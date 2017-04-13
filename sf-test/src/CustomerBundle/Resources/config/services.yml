@@ -1,0 +1,18 @@
+parameters:
+    #customer.speaker.name: 'Heisenberg'
+
+services:
+
+    customer.name_registry:
+        class: CustomerBundle\Service\NameRegistry
+
+    customer.speaker:
+        class: CustomerBundle\Service\Speaker
+        arguments: ['@customer.name_registry']
+
+    customer.notifier:
+        class: CustomerBundle\Service\Notifier
+        arguments:
+            - '@twig'
+            - '@mailer'
+            - '%recipient%'

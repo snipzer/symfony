@@ -1,0 +1,46 @@
+{% extends "CustomerBundle::base.html.twig" %}
+
+{% block body %}
+    <h2>Liste des clients</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Encours</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.firstName }}</td>
+                <td>{{ customer.lastName }}</td>
+                <td>{{ customer.birthday|date('y/m/Y') }}</td>
+                <td>{{ customer.balance|number_format(2, ',') }}</td>
+                <td>
+                    <a href="{{ path('customer_detail', {'id': customer.id}) }}"
+                       class="btn btn-xs btn-primary">
+                        Détails
+                    </a>
+                    <a href="{{ path('customer_update', {'id': customer.id}) }}"
+                       class="btn btn-xs btn-warning">
+                        Modifier
+                    </a>
+                    <a href="{{ path('customer_delete', {'id': customer.id}) }}"
+                       class="btn btn-xs btn-danger">
+                        Supprimer
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>
+        <a href="{{ path('customer_create') }}"
+           class="btn btn-success">
+            Create
+        </a>
+    </p>
+{% endblock %}

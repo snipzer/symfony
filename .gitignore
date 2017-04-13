@@ -41,3 +41,17 @@
 !sf-eshop/var/data/.gitkeep
 /sf-eshop/vendor/
 /sf-eshop/bin/
+
+/sf-test/web/bundles/
+/sf-test/app/bootstrap.php.cache
+/sf-test/app/cache/*
+/sf-test/app/config/parameters.yml
+/sf-test/app/logs/*
+!sf-test/app/cache/.gitkeep
+!sf-test/app/logs/.gitkeep
+/sf-test/app/phpunit.xml
+/sf-test/build/
+/sf-test/vendor/
+/sf-test/bin/
+/sf-test/composer.phar
+

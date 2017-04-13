@@ -1,0 +1,11 @@
+page_home:
+    path: /
+    defaults: { _controller: CustomerBundle:Page:home }
+
+page_contact:
+    path: /contact
+    defaults: { _controller: CustomerBundle:Page:contact }
+
+customer:
+    resource: routing/customer.yml
+    prefix:   /customer

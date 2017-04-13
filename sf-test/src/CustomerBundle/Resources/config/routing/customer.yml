@@ -1,0 +1,20 @@
+customer_index:
+    path:     /
+    defaults: { _controller: CustomerBundle:Customer:index }
+
+customer_create:
+    path:     /create
+    defaults: { _controller: CustomerBundle:Customer:create }
+
+customer_detail:
+    path:     /{id}
+    defaults: { _controller: CustomerBundle:Customer:detail }
+
+customer_update:
+    path:     /{id}/update
+    defaults: { _controller: CustomerBundle:Customer:update }
+
+customer_delete:
+    path:     /{id}/delete
+    defaults: { _controller: CustomerBundle:Customer:delete }
+

@@ -1,0 +1,37 @@
+{% extends "CustomerBundle::base.html.twig" %}
+
+{% block body %}
+    <h2>Détail du client #{{ customer.id }}</h2>
+    <table class="table">
+        <tr>
+            <th>Prénom</th>
+            <td>{{ customer.firstName }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ customer.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Date de naissance</th>
+            <td>{{ customer.birthday|date('y/m/Y') }}</td>
+        </tr>
+        <tr>
+            <th>Encours</th>
+            <td>{{ customer.balance|number_format(2, ',') }}</td>
+        </tr>
+    </table>
+    <p>
+        <a href="{{ path('customer_index') }}"
+           class="btn btn-sm btn-default">
+            Retour à la liste
+        </a>
+        <a href="{{ path('customer_update', {'id': customer.id}) }}"
+           class="btn btn-sm btn-warning">
+            Modifier
+        </a>
+        <a href="{{ path('customer_delete', {'id': customer.id}) }}"
+           class="btn btn-sm btn-danger">
+            Supprimer
+        </a>
+    </p>
+{% endblock %}

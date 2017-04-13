@@ -1,0 +1,12 @@
+{% extends "CustomerBundle::base.html.twig" %}
+
+{% block body %}
+    <h2>Création d'un client</h2>
+    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <p>
+        <a href="{{ path('customer_index') }}"
+           class="btn btn-sm btn-default">
+            Retour à la liste
+        </a>
+    </p>
+{% endblock %}

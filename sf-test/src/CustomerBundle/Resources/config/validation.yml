@@ -1,0 +1,19 @@
+# src/CustomerBundle/Resources/config/validation.yml
+CustomerBundle\Entity\Customer:
+    properties:
+        firstName:
+            - NotBlank: ~
+            - Length:
+                min: 3
+                max: 16
+                groups: ['registration']
+        address:
+            - Valid: ~
+
+CustomerBundle\Entity\Address:
+    properties:
+        street:
+            - NotBlank: ~
+            - Length:
+                min: 3
+                max: 16
