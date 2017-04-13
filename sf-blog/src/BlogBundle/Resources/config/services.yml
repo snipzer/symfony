@@ -8,4 +8,6 @@ services:
             - { name: twig.extension }
     blog.speaker:
         class: BlogBundle\Service\Speaker
-        arguments: ['%blog.speaker.name%']
+        arguments: ['@blog.name_registry']
+    blog.name_registry:
+        class: BlogBundle\Service\NameRegistry

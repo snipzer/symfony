@@ -4,16 +4,16 @@ namespace BlogBundle\Service;
 
 class Speaker
 {
-    private $_name;
+    private $registry;
 
-    public function __construct($name)
+    public function __construct(NameRegistry $registry)
     {
-        $this->_name = $name;
+        $this->registry = $registry;
     }
 
     public function sayMyName()
     {
-        return $this->_name;
+        return $this->registry->getRandomName();
     }
 }
 
