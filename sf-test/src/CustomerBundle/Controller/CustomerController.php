@@ -4,6 +4,7 @@ namespace CustomerBundle\Controller;
 
 use CustomerBundle\Entity\Customer;
 use CustomerBundle\Form\CustomerType;
+use Doctrine\DBAL\Driver\PDOException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -12,10 +13,7 @@ class CustomerController extends Controller
 {
     public function indexAction()
     {
-        $customers = $this
-            ->getDoctrine()
-            ->getRepository('CustomerBundle:Customer')
-            ->findAll();
+        $customers = $this->get("customer.balance_watcher")->getCustomerWithBalanceLowerThan(60);
 
         return $this->render('CustomerBundle:Customer:index.html.twig', [
             'customers' => $customers,
@@ -34,7 +32,8 @@ class CustomerController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
             $em->flush();
@@ -42,7 +41,7 @@ class CustomerController extends Controller
             return $this->redirectToRoute('customer_index');
         }
 
-        return $this->render( 'CustomerBundle:Customer:create.html.twig', [
+        return $this->render('CustomerBundle:Customer:create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -54,7 +53,8 @@ class CustomerController extends Controller
             ->getRepository('CustomerBundle:Customer')
             ->find($id);
 
-        if (!$customer) {
+        if (!$customer)
+        {
             throw $this->createNotFoundException(
                 'Customer not found'
             );
@@ -80,7 +80,8 @@ class CustomerController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
             $em->flush();
@@ -119,7 +120,8 @@ class CustomerController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $em = $this->getDoctrine()->getManager();
             $em->remove($customer);
             $em->flush();

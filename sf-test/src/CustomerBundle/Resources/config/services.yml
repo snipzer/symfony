@@ -16,3 +16,7 @@ services:
             - '@twig'
             - '@mailer'
             - '%recipient%'
+    customer.balance_watcher:
+        class: CustomerBundle\Service\BalanceWatcher
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
