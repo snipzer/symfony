@@ -2,3 +2,10 @@ app_index:
     path: /
     defaults:
         _controller: AppBundle:App:index
+
+app_product:
+    path: /product/{productId}
+    defaults:
+        _controller: AppBundle:App:product
+    requirements:
+        productId: \d+

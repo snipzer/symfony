@@ -1,0 +1,11 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block body %}
+    {% for offer in offers %}
+        <div style="border: 1px solid black; width: 50%; margin: 5px;">
+            <h2>Offre de: {{ offer.merchant.name }} pour {{ offer.product.designation }}</h2>
+            <p>Prix: {{ offer.price }} €</p>
+            <p>Date de mise à jour: {{ offer.updatedAt|date("d-m-Y") }}</p>
+        </div>
+    {% endfor %}
+{% endblock body %}

@@ -20,6 +20,32 @@ class AppController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->render('AppBundle:App:index.html.twig');
+        $productRepository = $this->getDoctrine()->getManager()->getRepository("AppBundle:Product");
+
+        $products = $productRepository->findAll();
+
+        return $this->render('AppBundle:App:index.html.twig', [
+            'products' => $products,
+        ]);
+    }
+
+    public function productAction(Request $request)
+    {
+        $productId = $request->attributes->get("productId");
+        $productRepository = $this->getDoctrine()->getManager()->getRepository("AppBundle:Product");
+        $offerRepository = $this->getDoctrine()->getManager()->getRepository("AppBundle:Offer");
+
+        $product = $productRepository->findOneBy(['id' => $productId]);
+        if(!$product)
+        {
+            throw $this->createNotFoundException("Sorry this is not the product you are looking for");
+        }
+
+        $offers = $offerRepository->findBy(['product' => $product]);
+
+
+        return $this->render("AppBundle:App:product.html.twig", [
+            "offers" => $offers,
+        ]);
     }
 }
