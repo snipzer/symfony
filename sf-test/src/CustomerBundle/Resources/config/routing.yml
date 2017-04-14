@@ -8,4 +8,5 @@ page_contact:
 
 customer:
     resource: routing/customer.yml
-    prefix:   /customer
+    prefix:   /admin/customer
+

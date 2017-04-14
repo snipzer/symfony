@@ -1,3 +1,11 @@
+login:
+    path: /login
+    defaults:
+        _controller: AppBundle:Security:login
+
+logout:
+    path: /logout
+
 customer:
     resource: "@CustomerBundle/Resources/config/routing.yml"
 
@@ -9,3 +17,4 @@ test:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
