@@ -1,0 +1,30 @@
+Gestion d'utilisateur:
+	FOSUserBundle
+
+Gestion de menus:
+	KnpMenuBundles
+
+Gestion d'images / fichiers:
+	LiipImageBundle
+	OneUpFlysystemBundle
+  OneUpUploaderBundle
+
+Générer des PDFs:
+	KnpSnappyBundle
+
+Bootstrap (CSS):
+	BraincraftedBootstrapBundle
+	MopaBootstrapBundle
+
+Gestion d'administration:
+	Sonata * Bundle
+	Oro * Bundle (CRM + eCommerce)
+	Sylius * Bundle (eCommerce)
+
+Paiements:
+	PayumBundle
+
+Extras:
+	CraueFormflowBundle (Formulaires par étapes)
+	WhiteOctoberPagerfantaBundle (Pagination)
+	DoctrineFixturesBundle (
