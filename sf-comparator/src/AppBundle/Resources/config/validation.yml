@@ -2,3 +2,6 @@ AppBundle\Entity\Offer:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [merchant, product]
+    properties:
+        price:
+            - GreaterThanOrEqual: 0

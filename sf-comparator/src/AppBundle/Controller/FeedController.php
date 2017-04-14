@@ -31,27 +31,39 @@ class FeedController extends Controller
 
         shuffle($eanCodes);
 
-        foreach ($eanCodes as $eanCode) {
-            if (rand(0, 10) > 6) {
+        foreach ($eanCodes as $eanCode)
+        {
+            if (rand(0, 10) > 6)
+            {
                 continue;
+            }
+
+            $price = rand(20000, 40000) / 100;
+            if (rand(0, 10) > 8)
+            {
+                $price = -$price;
             }
 
             $data[] = [
                 'ean_code' => $eanCode,
-                'price'    => rand(20000,40000) / 100,
+                'price' => $price,
             ];
 
-            if (rand(0, 80) > 6) {
+            if (rand(0, 80) > 6)
+            {
                 $data[] = [
                     'ean_code' => $eanCode,
-                    'price'    => rand(20000,40000) / 100,
+                    'price' => $price,
                 ];
             }
         }
 
-        if ($format === 'csv') {
+        if ($format === 'csv')
+        {
             return $this->fakeCsvFeed($data);
-        } elseif ($format === 'xml') {
+        }
+        elseif ($format === 'xml')
+        {
             return $this->fakeXmlFeed($data);
         }
 
@@ -69,7 +81,8 @@ class FeedController extends Controller
     {
         $content = '';
 
-        foreach ($data as $d) {
+        foreach ($data as $d)
+        {
             $content .= implode(';', array_values($d)) . PHP_EOL;
         }
 
@@ -89,7 +102,8 @@ class FeedController extends Controller
 
         $offers = $dom->createElement('offers');
 
-        foreach ($data as $d) {
+        foreach ($data as $d)
+        {
             $offer = $dom->createElement('offer');
             $offer->setAttribute('ean_code', $d['ean_code']);
             $offer->setAttribute('price', $d['price']);
@@ -128,7 +142,8 @@ class FeedController extends Controller
             ->getRepository('AppBundle:Merchant')
             ->findOneBy(['code' => $code]);
 
-        if (!$merchant) {
+        if (!$merchant)
+        {
             throw $this->createNotFoundException('Merchant not found');
         }
 

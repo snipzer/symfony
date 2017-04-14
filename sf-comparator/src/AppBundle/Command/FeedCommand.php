@@ -51,6 +51,6 @@ EOT
         // Afficher (dans le terminal) le nombre d'offres créées ou mises à jour.
         $output->writeln("Number of new offer: ".$tabCount["new"]);
         $output->writeln("Number of updated offer: ".$tabCount["updated"]);
-        $output->writeln("Number of UnicityError: ".$tabCount["UnicityErrors"]);
+        $output->writeln("Number of Error: ".$tabCount["Errors"]);
     }
 }
