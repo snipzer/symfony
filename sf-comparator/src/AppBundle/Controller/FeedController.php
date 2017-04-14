@@ -40,6 +40,13 @@ class FeedController extends Controller
                 'ean_code' => $eanCode,
                 'price'    => rand(20000,40000) / 100,
             ];
+
+            if (rand(0, 80) > 6) {
+                $data[] = [
+                    'ean_code' => $eanCode,
+                    'price'    => rand(20000,40000) / 100,
+                ];
+            }
         }
 
         if ($format === 'csv') {

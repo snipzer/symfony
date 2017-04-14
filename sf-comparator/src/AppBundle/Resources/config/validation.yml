@@ -1,0 +1,4 @@
+AppBundle\Entity\Offer:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [merchant, product]
