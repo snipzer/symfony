@@ -53,7 +53,7 @@ class Reader
         $tabCount = [
             "new" => "Error",
             "updated" => "Error",
-            "errors" => "Error",
+            "UnicityErrors" => "Error",
         ];
 
         switch ($extension)
@@ -73,7 +73,7 @@ class Reader
 
     public function forJson(Merchant $merchant, $url, ProductRepository $productRepository, OfferRepository $offerRepository)
     {
-        $countError = 0;
+        $countUnicityError = 0;
         $countNew = 0;
         $countUpdated = 0;
 
@@ -97,30 +97,30 @@ class Reader
             }
             else
             {
-                $offer = new Offer();
-                $offer->setProduct($product)
-                    ->setMerchant($merchant)
-                    ->setPrice($value["price"])
-                    ->setUpdatedAt(new \DateTime());
-                $countNew++;
+                $unicityErrors = $this->validateUnicity($offer);
+
+                if ($unicityErrors->count() > 0)
+                {
+                    $countUnicityError++;
+                }
+                else
+                {
+                    $offer = new Offer();
+                    $offer->setProduct($product)
+                        ->setMerchant($merchant)
+                        ->setPrice($value["price"])
+                        ->setUpdatedAt(new \DateTime());
+                    $countNew++;
+                }
             }
 
-            $errors = $this->validate($offer);
-
-            if($errors->count() > 0)
-            {
-                $countError++;
-            }
-            else
-            {
-                $this->manager->persist($offer);
-                $this->manager->flush();
-            }
+            $this->manager->persist($offer);
+            $this->manager->flush();
         }
         $tabCount = [
             "new" => $countNew,
             "updated" => $countUpdated,
-            "errors" => $countError,
+            "UnicityErrors" => $countUnicityError,
         ];
 
         return $tabCount;
@@ -130,7 +130,7 @@ class Reader
     public function forCsv(Merchant $merchant, $url, ProductRepository $productRepository, OfferRepository $offerRepository)
     {
 
-        $countError = 0;
+        $countUnicityErrors = 0;
         $countNew = 0;
         $countUpdated = 0;
 
@@ -154,21 +154,25 @@ class Reader
             }
             else
             {
-                $offer = new Offer();
-                $offer->setProduct($product)
-                    ->setMerchant($merchant)
-                    ->setPrice($data[1])
-                    ->setUpdatedAt(new \DateTime());
-                $countNew++;
+                $unicityErrors = $this->validateUnicity($offer);
+
+                if ($unicityErrors->count() > 0)
+                {
+                    $countUnicityErrors++;
+                }
+                else
+                {
+                    $offer = new Offer();
+                    $offer->setProduct($product)
+                        ->setMerchant($merchant)
+                        ->setPrice($data[1])
+                        ->setUpdatedAt(new \DateTime());
+                    $countNew++;
+                }
+
             }
 
-            $errors = $this->validate($offer);
-
-            if($errors->count() > 0)
-            {
-                $countError++;
-            }
-            else
+            if ($countUnicityErrors == 0)
             {
                 $this->manager->persist($offer);
                 $this->manager->flush();
@@ -179,7 +183,7 @@ class Reader
         $tabCount = [
             "new" => $countNew,
             "updated" => $countUpdated,
-            "errors" => $countError,
+            "UnicityErrors" => $countUnicityErrors,
         ];
 
         return $tabCount;
@@ -187,7 +191,7 @@ class Reader
 
     public function forXml(Merchant $merchant, $url, ProductRepository $productRepository, OfferRepository $offerRepository)
     {
-        $countError = 0;
+        $countUnicityError = 0;
         $countNew = 0;
         $countUpdated = 0;
 
@@ -218,36 +222,38 @@ class Reader
             }
             else
             {
-                $offer = new Offer();
-                $offer->setProduct($product)
-                    ->setMerchant($merchant)
-                    ->setPrice($price)
-                    ->setUpdatedAt(new \DateTime());
-                $countNew++;
+                $unicityErrors = $this->validateUnicity($offer);
+                if ($unicityErrors->count() > 0)
+                {
+                    $countUnicityError++;
+                }
+                else
+                {
+                    $offer = new Offer();
+                    $offer->setProduct($product)
+                        ->setMerchant($merchant)
+                        ->setPrice($price)
+                        ->setUpdatedAt(new \DateTime());
+                    $countNew++;
+                }
             }
 
-            $errors = $this->validate($offer);
-            if($errors->count() > 0)
-            {
-                $countError++;
-            }
-            else
+            if ($countUnicityError == 0)
             {
                 $this->manager->persist($offer);
                 $this->manager->flush();
             }
-
         }
         $tabCount = [
             "new" => $countNew,
             "updated" => $countUpdated,
-            "errors" => $countError,
+            "UnicityErrors" => $countUnicityError,
         ];
 
         return $tabCount;
     }
 
-    public function validate($entity)
+    public function validateUnicity($entity)
     {
         $validator = $this->validator;
 
